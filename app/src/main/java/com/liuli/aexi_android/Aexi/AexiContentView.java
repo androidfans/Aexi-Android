@@ -2,6 +2,7 @@ package com.liuli.aexi_android.Aexi;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.ViewGroup;
 
 /**
