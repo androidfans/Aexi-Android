@@ -11,13 +11,17 @@ import android.view.View;
  */
 public class Character extends View {
     private Paint paint;
-    public Character(Context context, Paint paint) {
+
+    private String content;
+
+    public Character(Context context, String content , Paint paint) {
         super(context);
         this.paint = paint;
+        this.content = content;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawText("你牛逼", 0, 70, paint);
+        canvas.drawText(content, 0, 70, paint);
     }
 }
