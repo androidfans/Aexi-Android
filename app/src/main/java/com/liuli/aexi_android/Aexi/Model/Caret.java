@@ -39,14 +39,14 @@ public class Caret extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        setMeasuredDimension(5,100);
+        setMeasuredDimension(20,100);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         if (show) {
             paint.setColor(Color.BLACK);
-            canvas.drawLine(20,getY(),20,getY() + getMeasuredHeight(),paint);
+            canvas.drawLine(3,getY(),3,getY() + getMeasuredHeight(),paint);
         }
     }
 }
