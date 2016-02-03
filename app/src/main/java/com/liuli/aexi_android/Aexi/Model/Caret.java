@@ -11,7 +11,7 @@ public class Caret extends GlyphImpl {
     private static Caret instance = new Caret();
     public CaretListener caretListener;
     private boolean show = true;
-    private Composition composition;
+    private Composition composition = Composition.getInstance();
     private Thread thread;
     private boolean run = true;
     private GlyphImpl hostGlyph;
@@ -62,13 +62,6 @@ public class Caret extends GlyphImpl {
         this.caretListener = caretListener;
     }
 
-    public Composition getComposition() {
-        return composition;
-    }
-
-    public void setComposition(Composition composition) {
-        this.composition = composition;
-    }
 
     @Override
     public void drawMe(Canvas canvas) {

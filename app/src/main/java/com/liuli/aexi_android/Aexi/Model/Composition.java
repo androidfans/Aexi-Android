@@ -2,6 +2,7 @@ package com.liuli.aexi_android.Aexi.Model;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 
 import java.util.List;
 
@@ -14,6 +15,13 @@ public class Composition extends GlyphImplGroup implements CaretListener,GlyphLi
     private CompositionListener compositionListener;
     private Caret caret;
     private PageStyle pageStyle;
+    private Paint paint;
+
+    @Override
+    public void setPaint(Paint paint) {
+        this.paint = paint;
+    }
+
     private Selection selection = new Selection(this);
     private static Composition composition = new Composition();
 
@@ -30,11 +38,11 @@ public class Composition extends GlyphImplGroup implements CaretListener,GlyphLi
     }
 
     @Override
-    public void drawMe(Canvas g) {
+    public void drawMe(Canvas canvas) {
         //画背景
-//        g.setColor(Color.WHITE);
-//        g.fillRect(x,y,width,height);
-//        super.drawMe(g);
+        paint.setColor(Color.WHITE);
+        canvas.drawRect(x,y,width,height,paint);
+        super.drawMe(canvas);
     }
 
     public void init() {
@@ -52,7 +60,6 @@ public class Composition extends GlyphImplGroup implements CaretListener,GlyphLi
         setCompositor(compositor);
         compositor.compose();
         Caret caret = Caret.getInstance();
-        caret.setComposition(this);
         setCaret(caret);
         caret.setHostGlyph(null);
     }
