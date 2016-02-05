@@ -37,9 +37,10 @@ public class AexiContentView extends View {
         paint.setAntiAlias(true);
         children = new ArrayList<>();
         textSize = 40f;
-        caret = Caret.getInstance();
+        caret = new Caret(paint);
         composition = Composition.getInstance();
         composition.setPaint(paint);
+        composition.setCaret(caret);
         setFocusable(true);
     }
 
@@ -48,27 +49,14 @@ public class AexiContentView extends View {
         int height = MeasureSpec.getSize(heightMeasureSpec);
         int width = MeasureSpec.getSize(widthMeasureSpec);
         setMeasuredDimension(width,height);
+        Log.i("ime", "width : " + width);
+        Log.i("ime", "height : " + height);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         composition.drawMe(canvas);
     }
-
-    //    private int measureHeight(int heightMeasureSpec) {
-//        int result = 0;
-//        int mode = MeasureSpec.getMode(heightMeasureSpec);
-//        int size = MeasureSpec.getSize(heightMeasureSpec);
-//        if (mode == MeasureSpec.EXACTLY) {
-//            result = size;
-//        } else {
-//            result = composition.getHeight();
-//            if (mode == MeasureSpec.AT_MOST) {
-//                result = Math.min(result, size);
-//            }
-//        }
-//        return result;
-//    }
 
     @Override
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
@@ -98,6 +86,7 @@ public class AexiContentView extends View {
 
     public void onTextInputed(String newText) {
         Log.i("ime", "文字输入事件 : " + newText);
-        children.add(new Character(newText,50f,paint));
+        composition.insert(new Character(newText, 60f, paint),0);
+        invalidate();
     }
 }

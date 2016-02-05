@@ -1,6 +1,7 @@
 package com.liuli.aexi_android.Aexi.Model;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 
@@ -10,10 +11,12 @@ import android.view.MotionEvent;
 public class Character extends GlyphImpl {
     private String content;
     private Paint paint;
+    private float textSize;
 
     public Character(String content, float textSize, Paint paint) {
         this.paint = paint;
         this.content = content;
+        this.textSize = textSize;
         paint.setTextSize(textSize);
         //初始化frame
         setWidth((int) paint.measureText(content));
@@ -26,7 +29,6 @@ public class Character extends GlyphImpl {
     }
 
     public String getContent() {
-
         return content;
     }
 
@@ -36,7 +38,9 @@ public class Character extends GlyphImpl {
 
     @Override
     public void drawMe(Canvas g) {
-
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(textSize);
+        g.drawText(content, x, y, paint);
     }
 
 

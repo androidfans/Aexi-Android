@@ -17,32 +17,8 @@ public class Composition extends GlyphImplGroup implements CaretListener,GlyphLi
     private PageStyle pageStyle;
     private Paint paint;
 
-    @Override
-    public void setPaint(Paint paint) {
-        this.paint = paint;
-    }
-
-    private Selection selection = new Selection(this);
-    private static Composition composition = new Composition();
-
-    public Selection getSelection() {
-        return selection;
-    }
-
-    public void setSelection(Selection selection) {
-        this.selection = selection;
-    }
-
     private Composition() {
         init();
-    }
-
-    @Override
-    public void drawMe(Canvas canvas) {
-        //画背景
-        paint.setColor(Color.WHITE);
-        canvas.drawRect(x,y,width,height,paint);
-        super.drawMe(canvas);
     }
 
     public void init() {
@@ -59,17 +35,36 @@ public class Composition extends GlyphImplGroup implements CaretListener,GlyphLi
         compositor.setComposition(this);
         setCompositor(compositor);
         compositor.compose();
-        Caret caret = Caret.getInstance();
-        setCaret(caret);
-        caret.setHostGlyph(null);
+    }
+
+
+    @Override
+    public void setPaint(Paint paint) {
+        this.paint = paint;
+    }
+
+    private Selection selection = new Selection(this);
+    private static Composition composition = new Composition();
+
+    public Selection getSelection() {
+        return selection;
+    }
+
+    public void setSelection(Selection selection) {
+        this.selection = selection;
+    }
+
+    @Override
+    public void drawMe(Canvas canvas) {
+        //画背景
+        paint.setColor(Color.WHITE);
+        canvas.drawRect(x,y,width,height,paint);
+        super.drawMe(canvas);
+        caret.drawMe(canvas);
     }
 
     public void setCompositor(Compositor compositor) {
         this.compositor = compositor;
-    }
-
-    public Caret getCaret() {
-        return caret;
     }
 
     public void setCaret(Caret caret) {

@@ -8,17 +8,17 @@ import android.graphics.Paint;
  * Created by Administrator on 2016/2/3 0003.
  */
 public class Caret extends GlyphImpl {
-    private static Caret instance = new Caret();
     public CaretListener caretListener;
     private boolean show = true;
     private Composition composition = Composition.getInstance();
-    private Thread thread;
     private boolean run = true;
     private GlyphImpl hostGlyph;
     private Paint paint;
 
-    private Caret() {
-        this.thread = new Thread(new Runnable() {
+
+    public Caret(Paint paint) {
+        this.paint = paint;
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 while (run) {
@@ -34,7 +34,6 @@ public class Caret extends GlyphImpl {
                 }
             }
         });
-        thread.start();
     }
 
     public void setHostGlyph(GlyphImpl hostGlyph) {
@@ -44,10 +43,6 @@ public class Caret extends GlyphImpl {
 
     public GlyphImpl getHostGlyph() {
         return hostGlyph;
-    }
-
-    public static Caret getInstance() {
-        return instance;
     }
 
     public int getInsertIndex() {
@@ -61,7 +56,6 @@ public class Caret extends GlyphImpl {
     public void setCaretListener(CaretListener caretListener) {
         this.caretListener = caretListener;
     }
-
 
     @Override
     public void drawMe(Canvas canvas) {
@@ -90,6 +84,5 @@ public class Caret extends GlyphImpl {
             height = hostGlyph.getHeight();
         }
         show = true;
-        caretListener.CaretRefresh(this);
     }
 }
