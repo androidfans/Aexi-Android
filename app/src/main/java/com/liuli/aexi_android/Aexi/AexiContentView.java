@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.liuli.aexi_android.Aexi.Control.AexiInputConnection;
 import com.liuli.aexi_android.Aexi.Model.Caret;
+import com.liuli.aexi_android.Aexi.Model.CaretListener;
 import com.liuli.aexi_android.Aexi.Model.Character;
 import com.liuli.aexi_android.Aexi.Model.Composition;
 import com.liuli.aexi_android.Aexi.Model.Glyph;
@@ -25,7 +26,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/1/31 0031.
  */
-public class AexiContentView extends View {
+public class AexiContentView extends View implements CaretListener {
     private Paint paint;
     private List<Glyph> children;
     private Caret caret;
@@ -36,11 +37,13 @@ public class AexiContentView extends View {
         paint = new Paint();
         paint.setAntiAlias(true);
         children = new ArrayList<>();
-        textSize = 40f;
+        textSize = 60f;
         caret = new Caret(paint);
-        composition = Composition.getInstance();
+        caret.setCaretListener(this);
+        composition = new Composition();
         composition.setPaint(paint);
         composition.setCaret(caret);
+        caret.setComposition(composition);
         setFocusable(true);
     }
 
@@ -56,6 +59,7 @@ public class AexiContentView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         composition.drawMe(canvas);
+        caret.drawMe(canvas);
     }
 
     @Override
@@ -86,7 +90,12 @@ public class AexiContentView extends View {
 
     public void onTextInputed(String newText) {
         Log.i("ime", "文字输入事件 : " + newText);
-        composition.insert(new Character(newText, 60f, paint),0);
+        composition.insert(new Character(newText, textSize, paint),caret.getInsertIndex());
         invalidate();
+    }
+
+    @Override
+    public void CaretRefresh() {
+        postInvalidate();
     }
 }

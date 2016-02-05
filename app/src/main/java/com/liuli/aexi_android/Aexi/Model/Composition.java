@@ -9,15 +9,14 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/2/3 0003.
  */
-public class Composition extends GlyphImplGroup implements CaretListener,GlyphListener {
+public class Composition extends GlyphImplGroup implements GlyphListener {
     private Compositor compositor;
     private Document document;
-    private CompositionListener compositionListener;
     private Caret caret;
     private PageStyle pageStyle;
     private Paint paint;
 
-    private Composition() {
+    public Composition() {
         init();
     }
 
@@ -29,29 +28,10 @@ public class Composition extends GlyphImplGroup implements CaretListener,GlyphLi
         y = 100;
         height = pageStyle.getHeight();
         width = pageStyle.getWidth();
-
-        //TODO 改成工厂模式,使用配置文件生成
         Compositor compositor = new StandardCompositor();
         compositor.setComposition(this);
         setCompositor(compositor);
         compositor.compose();
-    }
-
-
-    @Override
-    public void setPaint(Paint paint) {
-        this.paint = paint;
-    }
-
-    private Selection selection = new Selection(this);
-    private static Composition composition = new Composition();
-
-    public Selection getSelection() {
-        return selection;
-    }
-
-    public void setSelection(Selection selection) {
-        this.selection = selection;
     }
 
     @Override
@@ -60,15 +40,15 @@ public class Composition extends GlyphImplGroup implements CaretListener,GlyphLi
         paint.setColor(Color.WHITE);
         canvas.drawRect(x,y,width,height,paint);
         super.drawMe(canvas);
-        caret.drawMe(canvas);
     }
 
-    public void setCompositor(Compositor compositor) {
-        this.compositor = compositor;
-    }
-
-    public void setCaret(Caret caret) {
-        this.caret = caret;
+    @Override
+    public boolean hitRect(int x, int y) {
+        List<GlyphImpl> children = getChildren();
+        for (Glyph glyph : children) {
+            glyph.hitRect(x, y);
+        }
+        return true;
     }
 
     @Override
@@ -80,25 +60,7 @@ public class Composition extends GlyphImplGroup implements CaretListener,GlyphLi
         glyph.setWidth(width);
         glyph.setHeight(pageStyle.getHeight());
         super.append(glyph);
-        if (compositionListener != null)
-            compositionListener.documentRefresh(this);
         return true;
-    }
-
-    public void setCompositionListener(CompositionListener compositionListener) {
-        this.compositionListener = compositionListener;
-    }
-
-    public Document getDocument() {
-        return document;
-    }
-
-    @Override
-    public void CaretRefresh(Glyph glyph) {
-        if (compositor != null)
-            compositor.compose();
-        if (compositionListener != null)
-            compositionListener.documentRefresh(this);
     }
 
     @Override
@@ -113,15 +75,6 @@ public class Composition extends GlyphImplGroup implements CaretListener,GlyphLi
     }
 
     @Override
-    public boolean hitRect(int x, int y) {
-        List<GlyphImpl> children = getChildren();
-        for (Glyph glyph : children) {
-            glyph.hitRect(x, y);
-        }
-        return true;
-    }
-
-    @Override
     public Glyph remove(int index) {
         Glyph glyph = document.remove(index);
         if (compositor != null) {
@@ -130,14 +83,27 @@ public class Composition extends GlyphImplGroup implements CaretListener,GlyphLi
         return glyph;
     }
 
-    public static Composition getInstance() {
-        return composition;
-    }
-
     @Override
     public void glyphRefresh() {
         if (compositor != null) {
             compositor.compose();
         }
+    }
+
+    public Document getDocument() {
+        return document;
+    }
+    
+    public void setCompositor(Compositor compositor) {
+        this.compositor = compositor;
+    }
+
+    public void setCaret(Caret caret) {
+        this.caret = caret;
+    }
+
+    @Override
+    public void setPaint(Paint paint) {
+        this.paint = paint;
     }
 }

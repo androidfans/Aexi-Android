@@ -10,11 +10,10 @@ import android.graphics.Paint;
 public class Caret extends GlyphImpl {
     public CaretListener caretListener;
     private boolean show = true;
-    private Composition composition = Composition.getInstance();
+    private Composition composition;
     private boolean run = true;
     private GlyphImpl hostGlyph;
     private Paint paint;
-
 
     public Caret(Paint paint) {
         this.paint = paint;
@@ -23,8 +22,9 @@ public class Caret extends GlyphImpl {
             public void run() {
                 while (run) {
                     show = !show;
-                    if (caretListener != null)
-                        caretListener.CaretRefresh(Caret.this);
+                    if (caretListener != null) {
+                        caretListener.CaretRefresh();
+                    }
                     try {
                         //闪烁频率应该由配置文件来管理
                         Thread.sleep(500);
@@ -33,44 +33,11 @@ public class Caret extends GlyphImpl {
                     }
                 }
             }
-        });
-    }
-
-    public void setHostGlyph(GlyphImpl hostGlyph) {
-        this.hostGlyph = hostGlyph;
-        calculateFrame();
-    }
-
-    public GlyphImpl getHostGlyph() {
-        return hostGlyph;
-    }
-
-    public int getInsertIndex() {
-        int index = 0;
-        if (hostGlyph != null) {
-            index = composition.getDocument().indexOf(hostGlyph) + 1;
-        }
-        return index;
-    }
-
-    public void setCaretListener(CaretListener caretListener) {
-        this.caretListener = caretListener;
-    }
-
-    @Override
-    public void drawMe(Canvas canvas) {
-        if (paint != null) {
-            paint.setColor(Color.BLACK);
-            if (show) {
-                canvas.drawLine(x, y, x, y + height,paint);
-            }
-        }
+        }).start();
     }
 
     public void calculateFrame() {
         if (hostGlyph == null) {
-            //如果是空应该到第一行的起始位置
-            //TODO : 这种对composition的假设是否合理?应该加上泛型
             Page page = (Page) composition.getChildren().get(0);
             Row row = (Row) page.getChildren().get(0);
             x = row.getX();
@@ -84,5 +51,39 @@ public class Caret extends GlyphImpl {
             height = hostGlyph.getHeight();
         }
         show = true;
+        if (caretListener != null) {
+            caretListener.CaretRefresh();
+        }
+    }
+
+    @Override
+    public void drawMe(Canvas canvas) {
+        if (paint != null) {
+            paint.setColor(Color.BLACK);
+            if (show) {
+                canvas.drawLine(x, y, x, y + height,paint);
+            }
+        }
+    }
+
+    public int getInsertIndex() {
+        int index = 0;
+        if (hostGlyph != null) {
+            index = composition.getDocument().indexOf(hostGlyph) + 1;
+        }
+        return index;
+    }
+
+    public void setHostGlyph(GlyphImpl hostGlyph) {
+        this.hostGlyph = hostGlyph;
+        calculateFrame();
+    }
+
+    public void setCaretListener(CaretListener caretListener) {
+        this.caretListener = caretListener;
+    }
+
+    public void setComposition(Composition composition) {
+        this.composition = composition;
     }
 }
