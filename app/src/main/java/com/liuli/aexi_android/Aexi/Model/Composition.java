@@ -28,8 +28,10 @@ public class Composition extends GlyphImplGroup implements GlyphListener {
         //设置页面的大小
         x = 0;
         y = 0;
-        height = 0;
-        width = 0;
+    }
+
+    public void onMeasure(int width) {
+        this.width = width;
         Compositor compositor = new StandardCompositor();
         compositor.setComposition(this);
         setCompositor(compositor);
@@ -39,7 +41,7 @@ public class Composition extends GlyphImplGroup implements GlyphListener {
     @Override
     public void drawMe(Canvas canvas) {
         //画背景
-        paint.setColor(Color.WHITE);
+        paint.setColor(Color.BLUE);
         canvas.drawRect(x,y,width,height,paint);
         super.drawMe(canvas);
     }
@@ -60,7 +62,7 @@ public class Composition extends GlyphImplGroup implements GlyphListener {
         glyph.setX(x);
         glyph.setY(y);
         glyph.setWidth(width);
-        glyph.setHeight(height);
+        glyph.setHeight(1000);
         super.append(glyph);
         return true;
     }

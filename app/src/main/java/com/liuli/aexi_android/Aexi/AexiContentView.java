@@ -42,17 +42,20 @@ public class AexiContentView extends View implements CaretListener {
 
     public AexiContentView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        paint = new Paint();
-        paint.setAntiAlias(true);
         children = new ArrayList<>();
         textSize = 60f;
+        paint = new Paint();
+        paint.setTextSize(textSize);
+        paint.setAntiAlias(true);
         caret = new Caret(paint);
         caret.setCaretListener(this);
         composition = new Composition();
         composition.setPaint(paint);
         composition.setCaret(caret);
         caret.setComposition(composition);
-        caret.setHostGlyph(null);
+        caret.setX(0);
+        caret.setY(0);
+        caret.setHeight((int) (-paint.ascent() + paint.descent()));
         commandManager = new CommandManager();
         inputConnection = new AexiInputConnection(this,false);
         setFocusable(true);
@@ -63,6 +66,7 @@ public class AexiContentView extends View implements CaretListener {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int height = MeasureSpec.getSize(heightMeasureSpec);
         int width = MeasureSpec.getSize(widthMeasureSpec);
+        composition.onMeasure(width);
         setMeasuredDimension(width,height);
     }
 
