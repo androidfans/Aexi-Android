@@ -19,8 +19,7 @@ public class AexiInputConnection extends BaseInputConnection {
 
     @Override
     public boolean sendKeyEvent(KeyEvent event) {
-        Log.i("ime", "点击事件 : " + event.toString());
-        if (event.getKeyCode() == 66 || event.getKeyCode() == 67) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER || event.getKeyCode() == KeyEvent.KEYCODE_DEL) {
             aexiContentView.onFunctionalKeyTyped(event);
         }
         return true;

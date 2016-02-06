@@ -4,10 +4,10 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.BaseInputConnection;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
@@ -38,6 +38,7 @@ public class AexiContentView extends View implements CaretListener {
     private Composition composition;
     private float textSize;
     private CommandManager commandManager;
+    private InputConnection inputConnection;
 
     public AexiContentView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -53,7 +54,9 @@ public class AexiContentView extends View implements CaretListener {
         caret.setComposition(composition);
         caret.setHostGlyph(null);
         commandManager = new CommandManager();
+        inputConnection = new AexiInputConnection(this,false);
         setFocusable(true);
+        setFocusableInTouchMode(true);
     }
 
     @Override
@@ -61,8 +64,6 @@ public class AexiContentView extends View implements CaretListener {
         int height = MeasureSpec.getSize(heightMeasureSpec);
         int width = MeasureSpec.getSize(widthMeasureSpec);
         setMeasuredDimension(width,height);
-        Log.i("ime", "width : " + width);
-        Log.i("ime", "height : " + height);
     }
 
     @Override
@@ -73,7 +74,7 @@ public class AexiContentView extends View implements CaretListener {
 
     @Override
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
-        return new AexiInputConnection(this, false);
+        return inputConnection;
     }
 
     @Override
@@ -90,11 +91,11 @@ public class AexiContentView extends View implements CaretListener {
         if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
             Command command = null;
             switch (keyEvent.getKeyCode()) {
-                case 66:
+                case KeyEvent.KEYCODE_ENTER:
                     GlyphImpl glyph = new LineBreaker(textSize,paint);
                     command = new InsertCommand(composition, glyph);
                     break;
-                case 67:
+                case KeyEvent.KEYCODE_DEL:
                     command = new DeleteCommand(composition);
             }
             commandManager.setCurrentCommand(command);

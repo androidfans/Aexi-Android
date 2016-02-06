@@ -28,7 +28,6 @@ public class Caret extends GlyphImpl {
                         caretListener.CaretRefresh();
                     }
                     try {
-                        //闪烁频率应该由配置文件来管理
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();

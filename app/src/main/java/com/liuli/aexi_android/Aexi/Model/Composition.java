@@ -17,7 +17,6 @@ public class Composition extends GlyphImplGroup implements GlyphListener {
     private Compositor compositor;
     private Document document;
     private Caret caret;
-    private PageStyle pageStyle;
     private Paint paint;
 
     public Composition() {
@@ -27,11 +26,10 @@ public class Composition extends GlyphImplGroup implements GlyphListener {
     public void init() {
         document = new Document();
         //设置页面的大小
-        pageStyle = new PageStyle();
-        x = 50;
-        y = 100;
-        height = pageStyle.getHeight();
-        width = pageStyle.getWidth();
+        x = 0;
+        y = 0;
+        height = 0;
+        width = 0;
         Compositor compositor = new StandardCompositor();
         compositor.setComposition(this);
         setCompositor(compositor);
@@ -62,7 +60,7 @@ public class Composition extends GlyphImplGroup implements GlyphListener {
         glyph.setX(x);
         glyph.setY(y);
         glyph.setWidth(width);
-        glyph.setHeight(pageStyle.getHeight());
+        glyph.setHeight(height);
         super.append(glyph);
         return true;
     }

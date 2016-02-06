@@ -27,16 +27,11 @@ public class StandardCompositor implements Compositor {
             GlyphImpl glyph = (GlyphImpl) it.next();
             glyph.setDocumentIndex(i);
             glyph.setListener(composition);
-            if (glyph instanceof LineBreaker) {
+            if (glyph instanceof LineBreaker || !row.append(glyph)) {
                 row = new Row();
                 page.append(row);
                 row.append(glyph);
                 continue;
-            }
-            if (!row.append(glyph)) {
-                row = new Row();
-                page.append(row);
-                row.append(glyph);
             }
         }
     }
