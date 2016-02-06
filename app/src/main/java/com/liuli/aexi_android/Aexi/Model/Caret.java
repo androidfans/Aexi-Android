@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import com.liuli.aexi_android.Aexi.Interface.CaretListener;
+
 /**
  * Created by Administrator on 2016/2/3 0003.
  */

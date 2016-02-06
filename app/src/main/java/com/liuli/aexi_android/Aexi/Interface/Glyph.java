@@ -1,4 +1,4 @@
-package com.liuli.aexi_android.Aexi.Model;
+package com.liuli.aexi_android.Aexi.Interface;
 
 import android.graphics.Canvas;
 import android.view.MotionEvent;

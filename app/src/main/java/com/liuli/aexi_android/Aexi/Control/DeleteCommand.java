@@ -1,4 +1,10 @@
-package com.liuli.aexi_android.Aexi.Model;
+package com.liuli.aexi_android.Aexi.Control;
+
+import com.liuli.aexi_android.Aexi.Model.Caret;
+import com.liuli.aexi_android.Aexi.Interface.Command;
+import com.liuli.aexi_android.Aexi.Model.Composition;
+import com.liuli.aexi_android.Aexi.Model.Document;
+import com.liuli.aexi_android.Aexi.Model.GlyphImpl;
 
 /**
  * Created by Administrator on 2016/2/6 0006.

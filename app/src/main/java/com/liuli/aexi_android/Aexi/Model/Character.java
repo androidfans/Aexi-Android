@@ -12,12 +12,12 @@ public class Character extends GlyphImpl {
     private Paint paint;
     private float textSize;
 
-    public Character(String content, float textSize, Paint paint) {
+    public Character(char content, float textSize, Paint paint) {
         this.paint = paint;
-        this.content = content;
+        this.content = content + "";
         this.textSize = textSize;
         paint.setTextSize(textSize);
-        setWidth((int) paint.measureText(content));
+        setWidth((int) paint.measureText(this.content));
         setHeight((int) (-paint.ascent() + paint.descent()));
     }
 

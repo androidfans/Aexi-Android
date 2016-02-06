@@ -1,5 +1,7 @@
 package com.liuli.aexi_android.Aexi.Model;
 
+import com.liuli.aexi_android.Aexi.Interface.Compositor;
+
 import java.util.Iterator;
 
 /**

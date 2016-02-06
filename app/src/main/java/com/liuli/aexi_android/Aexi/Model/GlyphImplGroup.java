@@ -3,6 +3,8 @@ package com.liuli.aexi_android.Aexi.Model;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
 
+import com.liuli.aexi_android.Aexi.Interface.Glyph;
+
 import java.util.ArrayList;
 import java.util.List;
 

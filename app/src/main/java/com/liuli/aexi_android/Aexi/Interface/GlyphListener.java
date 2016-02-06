@@ -1,4 +1,4 @@
-package com.liuli.aexi_android.Aexi.Model;
+package com.liuli.aexi_android.Aexi.Interface;
 
 /**
  * Created by Administrator on 2016/2/3 0003.

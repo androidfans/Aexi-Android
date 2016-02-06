@@ -1,4 +1,6 @@
-package com.liuli.aexi_android.Aexi.Model;
+package com.liuli.aexi_android.Aexi.Control;
+
+import com.liuli.aexi_android.Aexi.Interface.Command;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,14 +27,4 @@ public class CommandManager {
         if (currentCommand.canUndo())
             commands.add(currentCommand);
     }
-
-    private static CommandManager instance = new CommandManager();
-
-    private CommandManager() {
-    }
-
-    public static CommandManager getInstance() {
-        return instance;
-    }
-
 }

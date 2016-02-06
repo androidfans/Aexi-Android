@@ -3,6 +3,9 @@ package com.liuli.aexi_android.Aexi.Model;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 
+import com.liuli.aexi_android.Aexi.Interface.Glyph;
+import com.liuli.aexi_android.Aexi.Interface.GlyphListener;
+
 /**
  * Created by Administrator on 2016/2/3 0003.
  */

@@ -14,12 +14,15 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.liuli.aexi_android.Aexi.Control.AexiInputConnection;
 import com.liuli.aexi_android.Aexi.Model.Caret;
-import com.liuli.aexi_android.Aexi.Model.CaretListener;
+import com.liuli.aexi_android.Aexi.Interface.CaretListener;
 import com.liuli.aexi_android.Aexi.Model.Character;
+import com.liuli.aexi_android.Aexi.Interface.Command;
+import com.liuli.aexi_android.Aexi.Control.CommandManager;
 import com.liuli.aexi_android.Aexi.Model.Composition;
-import com.liuli.aexi_android.Aexi.Model.Document;
-import com.liuli.aexi_android.Aexi.Model.Glyph;
+import com.liuli.aexi_android.Aexi.Control.DeleteCommand;
+import com.liuli.aexi_android.Aexi.Interface.Glyph;
 import com.liuli.aexi_android.Aexi.Model.GlyphImpl;
+import com.liuli.aexi_android.Aexi.Control.InsertCommand;
 import com.liuli.aexi_android.Aexi.Model.LineBreaker;
 
 import java.util.ArrayList;
@@ -34,6 +37,8 @@ public class AexiContentView extends View implements CaretListener {
     private Caret caret;
     private Composition composition;
     private float textSize;
+    private CommandManager commandManager;
+
     public AexiContentView(Context context, AttributeSet attrs) {
         super(context, attrs);
         paint = new Paint();
@@ -47,6 +52,7 @@ public class AexiContentView extends View implements CaretListener {
         composition.setCaret(caret);
         caret.setComposition(composition);
         caret.setHostGlyph(null);
+        commandManager = new CommandManager();
         setFocusable(true);
     }
 
@@ -80,35 +86,27 @@ public class AexiContentView extends View implements CaretListener {
     }
 
     public void onFunctionalKeyTyped(KeyEvent keyEvent) {
-        //这里涉及到长按检测,先暂时放着 不做
+        //长按会自动连发按键up 和 down事件,不需要单独处理长按事件
         if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
+            Command command = null;
             switch (keyEvent.getKeyCode()) {
                 case 66:
-                    Log.i("ime", "66");
-                    children.add(new LineBreaker());
+                    GlyphImpl glyph = new LineBreaker(textSize,paint);
+                    command = new InsertCommand(composition, glyph);
                     break;
                 case 67:
-                {
-                    GlyphImpl glyph = caret.getHostGlyph();
-                    GlyphImpl nextGlyph = null;
-                    Document list = composition.getDocument();
-                    if (glyph == null) {
-                        return;
-                    }
-                    int index = list.indexOf(glyph);
-                    if (index != 0) {
-                        nextGlyph = list.get(index - 1);
-                    }
-                    caret.setHostGlyph(nextGlyph);
-                    composition.remove(index);
-                }
+                    command = new DeleteCommand(composition);
             }
+            commandManager.setCurrentCommand(command);
+            commandManager.excuteCommand();
         }
     }
 
     public void onTextInputed(String newText) {
-        Log.i("ime", "文字输入事件 : " + newText);
-        composition.insert(new Character(newText, textSize, paint),caret.getInsertIndex());
+        for (int i = 0 ; i < newText.length() ; i ++) {
+            commandManager.setCurrentCommand(new InsertCommand(composition,new Character(newText.charAt(i),textSize,paint)));
+            commandManager.excuteCommand();
+        }
         invalidate();
     }
 

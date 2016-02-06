@@ -4,6 +4,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import com.liuli.aexi_android.Aexi.Interface.Compositor;
+import com.liuli.aexi_android.Aexi.Interface.Glyph;
+import com.liuli.aexi_android.Aexi.Interface.GlyphListener;
+
 import java.util.List;
 
 /**
