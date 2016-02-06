@@ -17,7 +17,9 @@ import com.liuli.aexi_android.Aexi.Model.Caret;
 import com.liuli.aexi_android.Aexi.Model.CaretListener;
 import com.liuli.aexi_android.Aexi.Model.Character;
 import com.liuli.aexi_android.Aexi.Model.Composition;
+import com.liuli.aexi_android.Aexi.Model.Document;
 import com.liuli.aexi_android.Aexi.Model.Glyph;
+import com.liuli.aexi_android.Aexi.Model.GlyphImpl;
 import com.liuli.aexi_android.Aexi.Model.LineBreaker;
 
 import java.util.ArrayList;
@@ -44,6 +46,7 @@ public class AexiContentView extends View implements CaretListener {
         composition.setPaint(paint);
         composition.setCaret(caret);
         caret.setComposition(composition);
+        caret.setHostGlyph(null);
         setFocusable(true);
     }
 
@@ -84,6 +87,21 @@ public class AexiContentView extends View implements CaretListener {
                     Log.i("ime", "66");
                     children.add(new LineBreaker());
                     break;
+                case 67:
+                {
+                    GlyphImpl glyph = caret.getHostGlyph();
+                    GlyphImpl nextGlyph = null;
+                    Document list = composition.getDocument();
+                    if (glyph == null) {
+                        return;
+                    }
+                    int index = list.indexOf(glyph);
+                    if (index != 0) {
+                        nextGlyph = list.get(index - 1);
+                    }
+                    caret.setHostGlyph(nextGlyph);
+                    composition.remove(index);
+                }
             }
         }
     }

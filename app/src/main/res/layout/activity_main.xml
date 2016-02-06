@@ -4,7 +4,5 @@
     android:layout_height="match_parent">
     <com.liuli.aexi_android.Aexi.AexiContentView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </com.liuli.aexi_android.Aexi.AexiContentView>
+        android:layout_height="match_parent" />
 </LinearLayout>

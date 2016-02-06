@@ -86,4 +86,8 @@ public class Caret extends GlyphImpl {
     public void setComposition(Composition composition) {
         this.composition = composition;
     }
+
+    public GlyphImpl getHostGlyph() {
+        return hostGlyph;
+    }
 }

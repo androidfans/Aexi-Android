@@ -93,7 +93,11 @@ public class Composition extends GlyphImplGroup implements GlyphListener {
     public Document getDocument() {
         return document;
     }
-    
+
+    public Caret getCaret() {
+        return caret;
+    }
+
     public void setCompositor(Compositor compositor) {
         this.compositor = compositor;
     }
