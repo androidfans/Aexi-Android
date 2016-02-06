@@ -19,7 +19,8 @@ public class Composition extends GlyphImplGroup implements GlyphListener {
     private Caret caret;
     private Paint paint;
 
-    public Composition() {
+    public Composition(Paint paint) {
+        this.paint = paint;
         init();
     }
 

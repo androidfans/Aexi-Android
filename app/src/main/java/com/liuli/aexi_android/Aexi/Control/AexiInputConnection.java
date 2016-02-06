@@ -1,10 +1,8 @@
 package com.liuli.aexi_android.Aexi.Control;
 
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.BaseInputConnection;
-
 import com.liuli.aexi_android.Aexi.AexiContentView;
 
 /**

@@ -17,9 +17,7 @@ public class Document extends GlyphImplGroup implements Iterable<GlyphImpl> {
 
     @Override
     public Glyph remove(int index) {
-        Glyph glyph = super.remove(index);
-
-        return glyph;
+        return super.remove(index);
     }
 
     public GlyphImpl getNext(Glyph glyph) {
