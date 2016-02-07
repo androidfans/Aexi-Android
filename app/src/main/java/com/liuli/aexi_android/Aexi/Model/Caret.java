@@ -46,8 +46,15 @@ public class Caret extends GlyphImpl {
             width = row.getWidth();
             height = row.getHeight();
         } else {
-            x = hostGlyph.getX() + hostGlyph.getWidth();
-            y = hostGlyph.getY();
+            GlyphImpl parent = hostGlyph.getParent();
+            int parentX = 0;
+            int parentY = 0;
+            if (parent != null) {
+                parentX = parent.getX();
+                parentY = parent.getY();
+            }
+            x = hostGlyph.getX() + hostGlyph.getWidth() + parentX;
+            y = hostGlyph.getY() + parentY;
             width = hostGlyph.getWidth();
             height = hostGlyph.getHeight();
         }
@@ -62,6 +69,7 @@ public class Caret extends GlyphImpl {
         if (paint != null) {
             paint.setColor(Color.BLACK);
             if (show) {
+                calculateFrame();
                 canvas.drawLine(x, y, x, y + height,paint);
             }
         }
@@ -77,7 +85,6 @@ public class Caret extends GlyphImpl {
 
     public void setHostGlyph(GlyphImpl hostGlyph) {
         this.hostGlyph = hostGlyph;
-        calculateFrame();
     }
 
     public void setCaretListener(CaretListener caretListener) {

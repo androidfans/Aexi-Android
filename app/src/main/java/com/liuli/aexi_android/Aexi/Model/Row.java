@@ -7,19 +7,28 @@ import java.util.List;
  */
 public class Row extends GlyphImplGroup {
 
+    public Row() {
+
+    }
+
+    public Row(int width , int height) {
+        this.width = width;
+        this.height = height;
+    }
+
     @Override
     public boolean append(GlyphImpl glyph) {
         List<GlyphImpl> children = getChildren();
         int x = 0;
         if (children.size() <= 0) {
-            x = this.x;
+            x = 0;
         } else {
             GlyphImpl preGlyph = children.get(children.size() - 1);
             x = preGlyph.getX() + preGlyph.getWidth();
         }
         //拿到空隙之后进行判断
         int space = this.width + this.x - x;
-        if (space <= 0) {
+        if (space < 0) {
             return false;
         }
         if (glyph instanceof Image) {
@@ -42,6 +51,7 @@ public class Row extends GlyphImplGroup {
             setHeight(glyph.getHeight());
             fixHeight(getChildren().size());
         }
+        glyph.setParent(this);
         return super.append(glyph);
     }
 

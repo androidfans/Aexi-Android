@@ -10,13 +10,11 @@ import com.liuli.aexi_android.Aexi.Interface.GlyphListener;
  * Created by Administrator on 2016/2/3 0003.
  */
 public abstract class GlyphImpl implements Glyph {
-    private Glyph parent;
+    protected GlyphImpl parent;
     protected GlyphListener listener;
-    private Paint paint;
+    protected Paint paint;
 
-    public void setPaint(Paint paint) {
-        this.paint = paint;
-    }
+
 
     private int documentIndex = 0;
     private boolean isSelected = false;
@@ -56,13 +54,16 @@ public abstract class GlyphImpl implements Glyph {
         this.height = height;
     }
 
+    public void setPaint(Paint paint) {
+        this.paint = paint;
+    }
     protected int height;
 
-    public Glyph getParent() {
+    public GlyphImpl getParent() {
         return parent;
     }
 
-    public void setParent(Glyph parent) {
+    public void setParent(GlyphImpl parent) {
         this.parent = parent;
     }
 

@@ -17,7 +17,6 @@ public class Composition extends GlyphImplGroup {
     private Compositor compositor;
     private Document document;
     private Caret caret;
-    private Paint paint;
 
     public Composition(Paint paint) {
         this.paint = paint;
@@ -33,8 +32,11 @@ public class Composition extends GlyphImplGroup {
 
     public void onMeasure(int width) {
         this.width = width;
-        Compositor compositor = new StandardCompositor();
+        StandardCompositor compositor = new StandardCompositor();
         compositor.setComposition(this);
+        compositor.setCompositionWidth(width);
+        compositor.setDefaultRowHeight(20);
+        compositor.setPageHeight(1000);
         setCompositor(compositor);
         compose();
     }
@@ -68,8 +70,6 @@ public class Composition extends GlyphImplGroup {
         //TODO 不需要重新new一个frame
         glyph.setX(x);
         glyph.setY(y);
-        glyph.setWidth(width);
-        glyph.setHeight(1000);
         super.append(glyph);
         return true;
     }
@@ -110,8 +110,4 @@ public class Composition extends GlyphImplGroup {
         this.caret = caret;
     }
 
-    @Override
-    public void setPaint(Paint paint) {
-        this.paint = paint;
-    }
 }

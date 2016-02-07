@@ -9,7 +9,6 @@ import android.graphics.Paint;
  */
 public class Character extends GlyphImpl {
     private String content;
-    private Paint paint;
     private float textSize;
 
     public Character(char content, float textSize, Paint paint) {
@@ -25,11 +24,6 @@ public class Character extends GlyphImpl {
     public void drawMe(Canvas g) {
         paint.setColor(Color.BLACK);
         paint.setTextSize(textSize);
-        g.drawText(content, x, y + -paint.ascent(), paint);
-    }
-
-    @Override
-    public void setPaint(Paint paint) {
-        this.paint = paint;
+        g.drawText(content, x + parent.getX(), y + -paint.ascent() + parent.getY(), paint);
     }
 }

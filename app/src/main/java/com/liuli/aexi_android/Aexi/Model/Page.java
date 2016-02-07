@@ -6,20 +6,32 @@ import java.util.List;
  * Created by Administrator on 2016/2/3 0003.
  */
 public class Page extends GlyphImplGroup {
+    public Page() {
+    }
+
+    public Page(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
     @Override
     public boolean append(GlyphImpl glyph) {
-        super.append(glyph);
-        Row row = (Row) glyph;
+        //判断空隙是否足够插入
         List<GlyphImpl> children = getChildren();
-        row.setWidth(width);
-        row.setHeight(20);
-        row.setX(x);
-        if (children.size() <= 1) {
-            row.setY(y);
+        int y;
+        if (children.size() <= 0) {
+            y = 0;
         } else {
-            Row preRow = (Row) children.get(children.size() - 2);
-            row.setY(preRow.getY() + preRow.getHeight());
+            GlyphImpl preGlyph = children.get(children.size() - 1);
+            y = preGlyph.getY() + preGlyph.getHeight();
         }
-        return true;
+        int space = this.y + this.getHeight() - y;
+        if (space < glyph.getHeight()) {
+            return false;
+        }
+        Row row = (Row) glyph;
+        row.setX(this.x);
+        row.setY(y);
+        glyph.setParent(glyph);
+        return super.append(glyph);
     }
 }
