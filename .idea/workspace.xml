@@ -31,18 +31,7 @@
     <bookmark url="file://$PROJECT_DIR$/app/src/main/java/com/liuli/aexi_android/Aexi/AexiContentView.java" line="118" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3e507f6f-3610-46e2-8f01-632ac80101f2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/liuli/aexi_android/Aexi/AexiContentView.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/liuli/aexi_android/Aexi/AexiContentView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/liuli/aexi_android/Aexi/Model/Caret.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/liuli/aexi_android/Aexi/Model/Caret.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/liuli/aexi_android/Aexi/Model/Character.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/liuli/aexi_android/Aexi/Model/Character.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/liuli/aexi_android/Aexi/Model/Composition.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/liuli/aexi_android/Aexi/Model/Composition.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/liuli/aexi_android/Aexi/Model/GlyphImpl.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/liuli/aexi_android/Aexi/Model/GlyphImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/liuli/aexi_android/Aexi/Model/Page.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/liuli/aexi_android/Aexi/Model/Page.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/liuli/aexi_android/Aexi/Model/Row.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/liuli/aexi_android/Aexi/Model/Row.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/liuli/aexi_android/Aexi/Model/StandardCompositor.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/liuli/aexi_android/Aexi/Model/StandardCompositor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-    </list>
+    <list default="true" id="3e507f6f-3610-46e2-8f01-632ac80101f2" name="Default" comment="" />
     <ignored path="Aexi-Android.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/build/classes/" />
