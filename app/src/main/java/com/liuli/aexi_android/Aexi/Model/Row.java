@@ -24,7 +24,7 @@ public class Row extends GlyphImplGroup {
             x = 0;
         } else {
             GlyphImpl preGlyph = children.get(children.size() - 1);
-            x = preGlyph.getX() + preGlyph.getWidth();
+            x = preGlyph.getRelX() + preGlyph.getWidth();
         }
         //拿到空隙之后进行判断
         int space = this.width + this.x - x;

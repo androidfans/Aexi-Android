@@ -13,25 +13,39 @@ public abstract class GlyphImpl implements Glyph {
     protected GlyphImpl parent;
     protected GlyphListener listener;
     protected Paint paint;
-
-
-
     private int documentIndex = 0;
     private boolean isSelected = false;
     protected int x;
     protected int y;
     protected int width;
 
-    public int getX() {
+    public int getRelX() {
         return x;
+    }
+
+    public int getRelY() {
+        return y;
+    }
+
+    public int getAbsX() {
+        int parentX = 0;
+        if (parent != null) {
+            parentX = parent.getAbsX();
+        }
+        return x + parentX;
+    }
+
+
+    public int getAbsY() {
+        int parentY = 0;
+        if (parent != null) {
+            parentY = parent.getAbsY();
+        }
+        return y + parentY;
     }
 
     public void setX(int x) {
         this.x = x;
-    }
-
-    public int getY() {
-        return y;
     }
 
     public void setY(int y) {
@@ -88,10 +102,6 @@ public abstract class GlyphImpl implements Glyph {
 
     public void setIsSelected(boolean isSelected) {
         this.isSelected = isSelected;
-    }
-
-    public int getDocumentIndex() {
-        return documentIndex;
     }
 
     public void setDocumentIndex(int documentIndex) {

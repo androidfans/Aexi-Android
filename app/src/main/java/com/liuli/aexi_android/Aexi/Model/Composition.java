@@ -6,7 +6,6 @@ import android.graphics.Paint;
 
 import com.liuli.aexi_android.Aexi.Interface.Compositor;
 import com.liuli.aexi_android.Aexi.Interface.Glyph;
-import com.liuli.aexi_android.Aexi.Interface.GlyphListener;
 
 import java.util.List;
 
@@ -36,7 +35,7 @@ public class Composition extends GlyphImplGroup {
         compositor.setComposition(this);
         compositor.setCompositionWidth(width);
         compositor.setDefaultRowHeight(20);
-        compositor.setPageHeight(1000);
+        compositor.setPageHeight(150);
         setCompositor(compositor);
         compose();
     }
@@ -44,7 +43,7 @@ public class Composition extends GlyphImplGroup {
     private void compose() {
         compositor.compose();
         GlyphImpl glyph = children.get(children.size() - 1);
-        setHeight(glyph.getY() + glyph.getHeight());
+        setHeight(glyph.getAbsY() + glyph.getHeight());
     }
 
     @Override
@@ -68,7 +67,12 @@ public class Composition extends GlyphImplGroup {
     public boolean append(GlyphImpl glyph) {
         //TODO 不可能只有一个page需要改进
         //TODO 不需要重新new一个frame
-        glyph.setX(x);
+        int y = 0;
+        if (children.size() > 0) {
+            GlyphImpl preGlyph = children.get(children.size() - 1);
+            y = preGlyph.getRelY() + preGlyph.getHeight();
+        }
+        glyph.setX(0);
         glyph.setY(y);
         super.append(glyph);
         return true;
@@ -89,7 +93,7 @@ public class Composition extends GlyphImplGroup {
     public Glyph remove(int index) {
         Glyph glyph = document.remove(index);
         if (compositor != null) {
-            compositor.compose();
+            compose();
         }
         return glyph;
     }

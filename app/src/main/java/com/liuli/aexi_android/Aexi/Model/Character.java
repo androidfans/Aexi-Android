@@ -24,6 +24,6 @@ public class Character extends GlyphImpl {
     public void drawMe(Canvas g) {
         paint.setColor(Color.BLACK);
         paint.setTextSize(textSize);
-        g.drawText(content, x + parent.getX(), y + -paint.ascent() + parent.getY(), paint);
+        g.drawText(content, x + parent.getAbsX(), y + -paint.ascent() + parent.getAbsY(), paint);
     }
 }

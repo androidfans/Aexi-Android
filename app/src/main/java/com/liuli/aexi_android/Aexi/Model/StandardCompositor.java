@@ -43,7 +43,7 @@ public class StandardCompositor implements Compositor {
             glyph = (GlyphImpl) it.next();
             if (!page.append(glyph)) {
                 composition.append(page);
-                page = new Page();
+                page = new Page(compositionWidth,pageHeight);
                 page.append(glyph);
             }
         }

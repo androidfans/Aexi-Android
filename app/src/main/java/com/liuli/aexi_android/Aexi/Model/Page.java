@@ -22,7 +22,7 @@ public class Page extends GlyphImplGroup {
             y = 0;
         } else {
             GlyphImpl preGlyph = children.get(children.size() - 1);
-            y = preGlyph.getY() + preGlyph.getHeight();
+            y = preGlyph.getRelY() + preGlyph.getHeight();
         }
         int space = this.y + this.getHeight() - y;
         if (space < glyph.getHeight()) {

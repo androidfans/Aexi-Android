@@ -41,20 +41,13 @@ public class Caret extends GlyphImpl {
         if (hostGlyph == null) {
             Page page = (Page) composition.getChildren().get(0);
             Row row = (Row) page.getChildren().get(0);
-            x = row.getX();
-            y = row.getY();
+            x = row.getAbsX();
+            y = row.getAbsY();
             width = row.getWidth();
             height = row.getHeight();
         } else {
-            GlyphImpl parent = hostGlyph.getParent();
-            int parentX = 0;
-            int parentY = 0;
-            if (parent != null) {
-                parentX = parent.getX();
-                parentY = parent.getY();
-            }
-            x = hostGlyph.getX() + hostGlyph.getWidth() + parentX;
-            y = hostGlyph.getY() + parentY;
+            x = hostGlyph.getAbsX() + hostGlyph.getWidth();
+            y = hostGlyph.getAbsY();
             width = hostGlyph.getWidth();
             height = hostGlyph.getHeight();
         }
