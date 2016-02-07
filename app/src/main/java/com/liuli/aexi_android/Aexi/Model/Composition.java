@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/2/3 0003.
  */
-public class Composition extends GlyphImplGroup implements GlyphListener {
+public class Composition extends GlyphImplGroup {
     private Compositor compositor;
     private Document document;
     private Caret caret;
@@ -36,7 +36,13 @@ public class Composition extends GlyphImplGroup implements GlyphListener {
         Compositor compositor = new StandardCompositor();
         compositor.setComposition(this);
         setCompositor(compositor);
+        compose();
+    }
+
+    private void compose() {
         compositor.compose();
+        GlyphImpl glyph = children.get(children.size() - 1);
+        setHeight(glyph.getY() + glyph.getHeight());
     }
 
     @Override
@@ -74,7 +80,7 @@ public class Composition extends GlyphImplGroup implements GlyphListener {
             return false;
         }
         document.add(index,glyph);
-        compositor.compose();
+        compose();
         caret.setHostGlyph(glyph);
         return true;
     }
@@ -86,13 +92,6 @@ public class Composition extends GlyphImplGroup implements GlyphListener {
             compositor.compose();
         }
         return glyph;
-    }
-
-    @Override
-    public void glyphRefresh() {
-        if (compositor != null) {
-            compositor.compose();
-        }
     }
 
     public Document getDocument() {

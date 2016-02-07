@@ -62,7 +62,6 @@ public class Document extends GlyphImplGroup implements Iterable<GlyphImpl> {
         return children.size();
     }
 
-
     @Override
     public Iterator iterator() {
         return children.iterator();

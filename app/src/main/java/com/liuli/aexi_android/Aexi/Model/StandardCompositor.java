@@ -26,7 +26,6 @@ public class StandardCompositor implements Compositor {
         for (int i = 0; it.hasNext(); i ++) {
             GlyphImpl glyph = (GlyphImpl) it.next();
             glyph.setDocumentIndex(i);
-            glyph.setListener(composition);
             if (glyph instanceof LineBreaker || !row.append(glyph)) {
                 row = new Row();
                 page.append(row);

@@ -62,9 +62,9 @@ public class AexiContentView extends View implements CaretListener {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int height = MeasureSpec.getSize(heightMeasureSpec);
         int width = MeasureSpec.getSize(widthMeasureSpec);
         composition.onMeasure(width);
+        int height = composition.getHeight();
         setMeasuredDimension(width,height);
     }
 
